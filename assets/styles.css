@@ -10,6 +10,20 @@
   box-sizing: border-box;
 }
 
+.introduction {
+  font-size: 0.8;
+  font-family: monospace;
+  text-align: center;
+  line-height: 1.6;
+  margin: 5px;
+}
+
+.top-container {
+  text-align: center;
+  padding: 20px;
+  margin-top: -20px;
+}
+
 .search-container input {
   width: 100%;
   padding: 10px;

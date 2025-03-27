@@ -5,6 +5,9 @@
 Icon
 ._*
 
+# lsps
+.ruby-lsp
+
 # Jekyll site
 _site/
 .sass-cache/
