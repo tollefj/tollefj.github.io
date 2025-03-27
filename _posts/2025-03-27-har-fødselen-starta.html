@@ -34,10 +34,6 @@ const options = {
     minute: '2-digit'
 };
 
-let lastCheckTime = localStorage.getItem('lastCheckTime');
-if (!lastCheckTime) {
-    lastCheckTime = now.toLocaleDateString('nb-NO', options);
-    localStorage.setItem('lastCheckTime', lastCheckTime);
-}
-document.getElementById('lastCheck').textContent = lastCheckTime;
+const lastCheck = now.toLocaleString('nb-NO', options);
+document.getElementById('lastCheck').textContent = lastCheck;
 </script>
