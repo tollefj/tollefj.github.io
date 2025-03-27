@@ -88,7 +88,6 @@ const llmSlander = [
     "treating text like a math problem, then being surprised when it lacks common sense.",
     "teaching a model to be just the right amount of wrong.",
     "reading everything but verifying nothing.",
-    "adding more layers to focus harder, rather than smarter.",
     "nudging responses until they become a slightly more polished guess."
 ];
 
