@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "blog reference"
+date:   2025-03-27 11:27:54 +0100
+categories: cat1 cat2 cat3
+description:  "something about this post"
+---
+code snippets:
+
+{% highlight ruby %}
+def print_hi(name)
+  puts "Hi, #{name}"
+end
+{% endhighlight %}
+
+neat.
+
+{% highlight python %}
+def print_hi(name):
+    print("Hi, {}".format(name))
+{% endhighlight %}
+
+
+> "The only thing we have to fear is fear itself." - Franklin D. Roosevelt

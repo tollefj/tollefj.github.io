@@ -1,0 +1,53 @@
+---
+layout: default
+title: Home
+---
+
+<h1>posts</h1>
+
+<!-- <div class="recent-posts">
+  {% for post in site.posts limit: 5 %}
+    <div class="recent-post">
+      <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+      <small>{{ post.date | date: "%B %d, %Y" }}</small>
+      <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+      <a href="{{ post.url }}">read more...</a>
+    </div>
+  {% endfor %}
+</div>
+<hr> -->
+
+{% for post in paginator.posts %}
+<h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+{% assign words = post.content | strip_html | number_of_words %} {% assign
+read_time = words | divided_by: 200.0 | ceil %}
+<p class="post-preview">
+  <span class="date">{{ post.date | date: "%b %d, %Y, %H:%m" }}</span>
+  <br />
+  <span class="read-time">read time: ~{{ read_time }} min</span>
+  <br />
+  {% if post.description %}
+  <span>▷︎<i> {{ post.description }}</i></span>
+  {% endif %}
+</p>
+{% endfor %}
+
+<div class="pagination">
+  {% if paginator.previous_page %}
+  <a href="{{ paginator.previous_page_path }}" class="previous pagination-link">
+    previous
+  </a>
+  {% else %}
+  <span class="previous">previous</span>
+  {% endif %}
+  <span class="page_number">
+    page: {{ paginator.page }}/{{ paginator.total_pages }}
+  </span>
+  {% if paginator.next_page %}
+  <a href="{{ paginator.next_page_path }}" class="next pagination-link">
+    next
+  </a>
+  {% else %}
+  <span class="next">next</span>
+  {% endif %}
+</div>

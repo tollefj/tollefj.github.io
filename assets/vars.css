@@ -1,0 +1,21 @@
+:root {
+    --font-family: 'Noto Serif Display', serif;
+    --background-color: #f8f8f6; /* Soft off-white */
+    --text-color: #111; /* Near-black */
+    --accent-color: #009b74; /* Dark greenish */
+    --secondary-text-color: #333; /* Slightly lighter text */
+    --muted-text-color: #555; /* Grayish text */
+    --border-color: #e1e1e1; /* Subtle border */
+    --heading-font-weight: bold;
+
+    /* Font Sizes */
+    --font-size-h1: 2rem;
+    --font-size-h2: 1.75rem;
+    --font-size-h3: 1.5rem;
+
+    /* Spacing */
+    --spacing-main-margin: 40px auto;
+    --spacing-main-padding: 20px;
+    --spacing-post-padding: 20px 0;
+    --spacing-footer-padding: 20px;
+}
