@@ -1,0 +1,43 @@
+---
+layout: noheader
+title: "har fødelsen starta?"
+date: 2025-03-27 16:00:00 +0100
+categories: info
+tags: [info]
+description: "har fødselen starta?!"
+---
+
+<h1 class="nei"></h1>
+<style>
+h1 {
+    text-align: center;
+    font-size: 5em;
+}
+.nei::before {
+    content: "nei";
+}
+.ja::before {
+    content: "ja";
+}
+</style>
+
+<i>Sist endret: 27. mars, 16:10</i>
+
+<p>Du sjekket sist: <span id="lastCheck"></span></p>
+
+<script>
+const now = new Date();
+const options = {
+    day: 'numeric',
+    month: 'long',
+    hour: '2-digit',
+    minute: '2-digit'
+};
+
+let lastCheckTime = localStorage.getItem('lastCheckTime');
+if (!lastCheckTime) {
+    lastCheckTime = now.toLocaleDateString('nb-NO', options);
+    localStorage.setItem('lastCheckTime', lastCheckTime);
+}
+document.getElementById('lastCheck').textContent = lastCheckTime;
+</script>

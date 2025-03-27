@@ -37,25 +37,11 @@
     />
   </head>
   <body>
-    <header>{% include header.html %}</header>
-    <main>{{ content }}</main>
-
-    <footer>{% include footer.html %}</footer>
-
-    <script>
-      window.store = {
-        posts: [
-          {% for post in site.posts %}
-          {
-            "title": "{{ post.title | escape }}",
-            "url": "{{ post.url }}",
-            "tags": {{ post.tags | jsonify }},
-            "date": "{{ post.date | date: "%Y-%m-%d" }}",
-          }{% if forloop.last == false %},{% endif %}
-          {% endfor %}
-        ]
-      };
-    </script>
+    <main>
+      <div style="text-align: center;">
+        {{ content }}
+      </div>
+    </main> 
   </body>
 </html>
 

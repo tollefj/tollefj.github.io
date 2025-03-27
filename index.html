@@ -4,18 +4,20 @@ title: Home
 ---
 
 <div class="search-container">
-  <input type="text" id="search-input" placeholder="search...">
+  <input type="text" id="search-input" placeholder="search..." />
   <ul id="search-results"></ul>
 </div>
 
 <!-- <h1>posts</h1> -->
-<br>
+<br />
 {% for post in paginator.posts %}
 <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
 {% assign words = post.content | strip_html | number_of_words %} {% assign
 read_time = words | divided_by: 200.0 | ceil %}
 <p class="post-preview">
-  <span class="date">{{ post.date | date: "%B %d, %Y, %H:%m" | downcase }}</span>
+  <span class="date"
+    >{{ post.date | date: "%B %d, %Y, %H:%m" | downcase }}</span
+  >
   <br />
   <span class="read-time">read time: ~{{ read_time }} min</span>
   <br />
@@ -45,84 +47,45 @@ read_time = words | divided_by: 200.0 | ceil %}
   </a>
 </div>
 
-
-{% assign ethnicities = site.people | map: "ethnicity" | compact %}
-{% assign ethnicities = ethnicities | join: ','  | split: ','  | uniq | sort %}
-
-{% assign occupations = site.people | map: "occupation" | compact %}
-{% assign occupations = occupations | join: ','  | split: ','  | uniq | sort %}
- 
-<form role="search">
-<div class="search-control" style="display:none;">
-    <input type="search" id="person-serarch" name="query"
-           placeholder="Keyword Search"
-           aria-label="Search people using keyword">
-    <input type="search" id="person-search" name="name"
-           placeholder="Search Name"
-           aria-label="Search people using name">
-    <select id="ethnicitieselect" name="ethnicity"
-      aria-label="Dropdown for ethnicity">
-        <option value="">All ethnicities</option>
-        {% for ethnicity in ethnicities %}
-          {% if ethnicity != '' %}
-          <option value="{{ethnicity}}">{{ethnicity}}</option>
-          {% endif %}
-        {% endfor %}
-    </select>
-    <select multiple="multiple" size="10" id="occupationSelect" name="occupation"
-      aria-label="occupation search">
-      <optgroup label="Occupations">
-        {% for occupation in occupations %}
-          {% if occupation != '' %}
-          <option value="{{occupation}}">{{occupation}}</option>
-          {% endif %}
-        {% endfor %}
-      </optgroup>
-    </select>
-    <button class="custom_button" style="float: right;">Search</button>
-</div>
-</form>
-
-
 <script>
-  window.onload = function() {
-    if (window.location.pathname !== '/' && window.location.pathname.endsWith('.html')) {
-      window.location.replace('/');
-    }
-  };
-</script>
-<script>
-  fetch('/assets/searchData.json')
-    .then(response => response.json())
-    .then(data => {
-      const searchInput = document.getElementById('search-input');
-      const searchResults = document.getElementById('search-results');
-      const posts = data.sample_posts;
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-input");
+    const searchResults = document.getElementById("search-results");
+    const posts = window.store.posts;
 
-      searchInput.addEventListener('input', function(e) {
-        const query = e.target.value.toLowerCase();
-        searchResults.innerHTML = '';
+    searchInput.addEventListener("input", function (e) {
+      const query = e.target.value.toLowerCase();
+      searchResults.innerHTML = "";
 
-        if (query.length > 0) {
-          const results = posts.filter(post => {
-        const title = post.title.toLowerCase();
-        const description = post.description.toLowerCase();
-        const tags = post.tags.map(tag => tag.toLowerCase());
+      if (query.length > 0) {
+        const results = posts
+          .filter((post) => {
+            const title = post.title.toLowerCase();
+            const tags = post.tags.map((tag) => tag.toLowerCase());
 
-        return (
-          title.includes(query) ||
-          description.includes(query) ||
-          tags.includes(query)
-        );
-          }).slice(0, 3); // Limit to 3 results
+            return (
+              title.includes(query) ||
+              tags.some((tag) => tag.includes(query))
+            );
+          })
+          .slice(0, 3);
 
-          results.forEach(post => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href=${post.url}>${post.title}</a><p>${post.description}</p>`;
-        searchResults.appendChild(li);
+        results.forEach((post) => {
+          const date = new Date(post.date);
+          const formattedDate = date.toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
           });
-        }
-      });
-    })
-    .catch(error => console.error('Error fetching search data:', error));
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <a href="${post.url}">${post.title}</a>
+            <br>
+            <small>${formattedDate}</small>
+          `;
+          searchResults.appendChild(li);
+        });
+      }
+    });
+  });
 </script>

@@ -1,5 +1,26 @@
-_site
-.sass-cache
-.jekyll-cache
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Jekyll site
+_site/
+.sass-cache/
+.jekyll-cache/
 .jekyll-metadata
-vendor
+vendor/
+.bundle/
+*.gem
+
+# Local dev
+.ruby-version
+.env
+*.log
+
+# IDE/Editor folders
+.idea/
+.vscode/
+*.swp
+*.swo
