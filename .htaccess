@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !\.(html|css|js|jpg|jpeg|png|gif|svg)$
+RewriteRule ^(.*)$ / [R=301,L]

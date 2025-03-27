@@ -3,10 +3,14 @@ title: tollef.web
 email: tollefj@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   random notes and ramblings
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: ""
+# the subpath of your site, e.g. /blog
+url: "https://tollefj.github.io/"
 twitter_username:
 github_username:  tollefj
+
+linkedin_url: "https://www.linkedin.com/in/tollefj/"
+github_url: "https://github.com/tollefj"
 
 markdown: kramdown  
 highlighter: rouge 
@@ -22,11 +26,13 @@ kramdown:
     guess_lang: false
 
 
+# permalink: /:categories/:title/
+permalink: /:title/
+
 paginate: 5
-paginate_path: "/page:num/"
+# paginate_path: "/page:num/"
 plugins:
   - jekyll-paginate
-
 
 exclude:
   - .sass-cache/
@@ -39,3 +45,14 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - assets/searchData.json
+
+lunr_settings:
+  atozsortfield: title
+  collections: [posts]
+  displayfields:
+  - {field: title, headerfield: true, highlight: true}
+  - {field: categories, headerimage: false, highlight: false}
+  - {field: description, label: Description, highlight: false}
+  fuzzysearchfields: [title]
+  view_facets: 5

@@ -2,23 +2,27 @@
 layout: post
 title:  "blog reference"
 date:   2025-03-27 11:27:54 +0100
-categories: cat1 cat2 cat3
+categories: blog
+tags: [code, highlighting, test]
 description:  "something about this post"
 ---
 code snippets:
 
-{% highlight ruby %}
+```ruby
 def print_hi(name)
   puts "Hi, #{name}"
 end
-{% endhighlight %}
+```
 
 neat.
 
-{% highlight python %}
+```python
 def print_hi(name):
     print("Hi, {}".format(name))
-{% endhighlight %}
-
+```
 
 > "The only thing we have to fear is fear itself." - Franklin D. Roosevelt
+
+![caption](https://www.shutterstock.com/image-photo/on-white-background-buttons-used-260nw-2048122016.jpg){:width="500"}
+_caption_
+
