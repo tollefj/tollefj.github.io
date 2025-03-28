@@ -11,11 +11,11 @@
 }
 
 .introduction {
-  font-size: 0.8;
+  /* font-size: 0.8; */
   font-family: monospace;
-  text-align: center;
-  line-height: 1.6;
-  margin: 5px;
+  /* text-align: center; */
+  /* line-height: 1.6; */
+  /* margin: 5px; */
 }
 
 .top-container {
