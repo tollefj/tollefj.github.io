@@ -37,15 +37,12 @@ layout: post
 title:  "{title}"
 date:   {current_time}
 categories: {cat}
-tags: [{', '.join(f'"{tag}"' for tag in tags)}]
+tags: [{', '.join(f'{tag}' for tag in tags)}]
 description:  "{description}"
 ---
-
-# {title}
-
 _{description}_
 
-## content
+*content goes here*
 
 """
 
