@@ -4,6 +4,7 @@ email: tollefj@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   random notes and ramblings
 baseurl: ""
+future: true
 # the subpath of your site, e.g. /blog
 url: "https://tollefj.github.io/"
 twitter_username:
