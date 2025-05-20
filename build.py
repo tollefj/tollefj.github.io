@@ -1,7 +1,8 @@
-import yaml
-import re
-from datetime import datetime
 import os
+import re
+import yaml
+from datetime import datetime
+
 from util import article_html, meta_html, snapshot
 
 POSTS_DIR = "posts"

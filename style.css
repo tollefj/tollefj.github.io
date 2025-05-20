@@ -1,7 +1,7 @@
 :root {
   --color-primary: #333;
   --color-secondary: #000;
-  --color-accent: #666;
+  --color-accent: #777;
   --color-bg: #f5f5dc;
   --color-text: #000;
   --font-family: "Georgia", serif;
@@ -14,11 +14,21 @@ body {
   color: var(--color-text);
   font-family: "Georgia", serif;
   margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  /* always account for scroll bar width */
+  padding-right: calc(1rem + 0.5vw);
 }
 
 main {
+  max-width: 800px;
+  width: 100%;
   padding-top: 1rem;
   margin-top: 2rem;
+  margin-bottom: 100px;
 }
 
 header time {
@@ -60,24 +70,24 @@ h1 {
 }
 
 sup {
-    font-size: 0.8rem;
-    vertical-align: super;
-    line-height: 0;
-    color: var(--color-accent);
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  font-size: 0.8rem;
+  vertical-align: super;
+  line-height: 0;
+  color: var(--color-accent);
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 .footnote-backref {
-    font-size: 0.8rem;
-    line-height: 0;
-    color: var(--color-primary);
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
+  font-size: 0.8rem;
+  line-height: 0;
+  color: var(--color-primary);
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 /* @layer utilities { */
@@ -92,12 +102,12 @@ sup {
 
 footer {
   position: fixed;
-  background: #f5f5dc;
+  background: var(--color-bg);
   bottom: 0;
   left: 0;
   right: 0;
   padding: 0 1rem;
-  border-top: 1px solid #aaa;
+  border-top: 1px dotted var(--color-accent);
   font-size: 0.9rem;
 
   .content {
@@ -105,5 +115,22 @@ footer {
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+  }
+}
+
+#footer-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      color: var(--color-secondary);
+    }
   }
 }
