@@ -1,6 +1,6 @@
 /old
-/posts/*
-!/posts/*.html
+# /posts/*
+# !/posts/*.html
 
 *.swp
 *.tmp
