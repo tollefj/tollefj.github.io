@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>tollef.web</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+  </head>
+  <body>
+    <h1><a href="../index.html">tollef.web</a></h1>
+    <main><article>
+  <h2>first entry - project update</h2>
+  <div class="meta">
+    <p id="date">April 01 2023 @ 00:20</p>
+  </div>
+  <div class="content"><p>As a test/demo of the my first blog entry for this site, a few findings from the past few weeks and update on my current projects seemed reasonable..?</p>
+<p>There are currently three major projects in the works:</p>
+<ul>
+<li>Metadata extraction and semantic search for criminal investigations (CCIQ)</li>
+<li>Unsupervised sentence summarization/compression</li>
+<li>Coreference resolution (<a href="https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-5053">CorefUD 1.1</a>)</li>
+</ul>
+<p>And of course, this blog, along with a new birthday page for the institute: <a href="https://idi-birthday.web.app/">https://idi-birthday.web.app/</a> for the past two days.</p>
+<p>Focus has primarily been on Project 1, CCIQ.</p>
+<p>The core finding has been that Event Extraction (EE) and similar fields are largely undefined and have little practical use in terms of criminal cases, as there are <em>no ground truths</em>. When data is based on claimed facts, treating these as events may not necessarily be correct, and thus needs to be accounted for. The act of detecting them is interesting, but from previous police work, a solid foundation for semantic search has seemed to be a better fit - as we can then search for meanings behind a claimed fact.</p>
+<p><a href="https://www.maartengrootendorst.com/">Maarten Grootendorst</a> has done interesting work on the field, and is behind OSS like <a href="https://github.com/MaartenGr/BERTopic">BERTopic</a>.</p>
+<p>When investigating some use-cases for EE, before disregarding further developments, the following papers were considered:</p>
+<ul>
+<li><a href="https://arxiv.org/pdf/2205.01376v1.pdf">Beyond Bag-of-Concepts: Vectors of Locally<br />
+Aggregated Concepts<br />
+</a></li>
+<li><a href="https://arxiv.org/pdf/2107.02126.pdf">A Survey on Deep Learning Event Extraction:<br />
+Approaches and Applications</a></li>
+<li><a href="https://ceur-ws.org/Vol-1211/paper10.pdf">R2E: Rule-based Event Extractor</a></li>
+<li><a href="https://arxiv.org/pdf/2205.01376v1.pdf">Textual Entailment for Event Argument Extraction:<br />
+Zero- and Few-Shot with Multi-Source Learning</a> - Along with the github page: <a href="https://github.com/osainz59/Ask2Transformers">https://github.com/osainz59/Ask2Transformers</a></li>
+<li><a href="https://blender.cs.illinois.edu/paper/hlt09-event.pdf">Towards High Performance Multilingual Event Extraction:<br />
+Language Specific Issue and Feature Exploration</a></li>
+<li><a href="https://bakser.github.io/files/ACL21-CLEVE/CLEVE.pdf">CLEVE: Contrastive Pre-training for Event Extraction</a></li>
+<li><a href="https://arxiv.org/pdf/2210.08646.pdf">EventGraph: Event Extraction as Semantic Graph Parsing</a> - <strong>HIGHLY relevant</strong></li>
+</ul>
+<p><img src="https://firebasestorage.googleapis.com/v0/b/toffel.appspot.com/o/images%2F2023-03-31T22%3A20%3A36.728Z.png?alt=media&amp;token=db48ffed-4c92-4bf9-8a17-40c574391756" alt="2023-03-31T22:20:36.728Z.png" /></p>
+</div>
+</article>
+</main>
+    <main></main>
+    <footer>
+      <div class="content">
+        <div id="footer-left">
+          <p>tollef jørgensen &#169;2025</p>
+        </div>
+        <div id="footer-right">
+          <p><a href="https://linkedin.com/in/tollefj">linkedin</a></p>
+          <p><a href="https://github.com/tollefj">github</a></p>
+          <p>
+            <a
+              href="https://scholar.google.com/citations?user=LpJWJnIAAAAJ&hl=en"
+              >scholar</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

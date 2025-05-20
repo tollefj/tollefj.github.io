@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>tollef.web</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+  </head>
+  <body>
+    <h1><a href="../index.html">tollef.web</a></h1>
+    <main><article>
+  <h2>altering spaCy coref's input data</h2>
+  <div class="meta">
+    <p id="date">April 14 2023 @ 01:21</p>
+  </div>
+  <div class="content"><p>spaCys coref model is intriguing -- although it is largely based on WL-coref <a href="https://github.com/vdobrovolskii/wl-coref">https://github.com/vdobrovolskii/wl-coref</a>. Working with a large number of datasets, I needed to alter the custom spacydoc object that is serialized in the preprocessing pipeline: <a href="https://github.com/explosion/projects/blob/v3/experimental/coref/scripts/preprocess.py">https://github.com/explosion/projects/blob/v3/experimental/coref/scripts/preprocess.py</a>.</p>
+<p>By merely outputting interesting fields from the preprocessing step, their clustermap and according functionality is just based on the common jsonl-format of coreference clusters:</p>
+<pre><code class="language-json">    &quot;clustermap&quot;: {
+        &quot;18&quot;: [
+            [
+                32,
+                38
+            ],
+            [
+                28,
+                29
+            ]
+        ],
+        &quot;12&quot;: [
+            [
+                494,
+                498
+            ], ...
+</code></pre>
+<p>(loaded using Ontonotes v5)</p>
+<p>Where each cluster ID (e.g. &quot;18&quot; above), is then processed as text spans, so we move from &quot;ID&quot;: [(start,end), (...)] to &quot;coref_clusters_LENGTH_OF_ID-CLUSTERS&quot;: [token span text, ...], along with &quot;coref_head_clusters_ID&quot;: [head text, ...]</p>
+<p>so this is fairly easy to gather from any conll- or json formatted file. Neat.</p>
+</div>
+</article>
+</main>
+    <main></main>
+    <footer>
+      <div class="content">
+        <div id="footer-left">
+          <p>tollef jørgensen &#169;2025</p>
+        </div>
+        <div id="footer-right">
+          <p><a href="https://linkedin.com/in/tollefj">linkedin</a></p>
+          <p><a href="https://github.com/tollefj">github</a></p>
+          <p>
+            <a
+              href="https://scholar.google.com/citations?user=LpJWJnIAAAAJ&hl=en"
+              >scholar</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

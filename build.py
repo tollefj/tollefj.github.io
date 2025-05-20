@@ -19,6 +19,7 @@ if __name__ == "__main__":
     post_links = []
     for root, dirs, files in os.walk(POSTS_DIR):
         for file in files:
+            print(f"Processing {file}")
             if "yml" in file:
                 if not os.path.exists(os.path.join(root, file.replace("yml", "md"))):
                     print(f"Missing md file for {file}")
