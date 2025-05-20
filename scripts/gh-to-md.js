@@ -3,22 +3,32 @@ const urlInput = document.getElementById("issue-url");
 const convertButton = document.getElementById("convert");
 const statusAndErrorElement = document.getElementById("error"); // Re-purposing the error element for status too
 
+const MIN_STATUS_DISPLAY_TIME_MS = 1000; // Minimum time each status message is visible (1 second)
+
+/**
+ * Utility function to create a delay.
+ * @param {number} ms The number of milliseconds to delay.
+ * @returns {Promise<void>} A promise that resolves after the specified delay.
+ */
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 /**
  * Resets the status/error message and enables input/button.
  */
 const resetUI = () => {
     statusAndErrorElement.textContent = '';
-    statusAndErrorElement.style.color = ''; // Reset color to default (likely red from your CSS, but we'll manage it)
+    statusAndErrorElement.style.color = ''; // Reset color to default
     urlInput.disabled = false;
     convertButton.disabled = false;
 };
 
 /**
- * Updates the status/error message for the user.
+ * Updates the status/error message for the user, ensuring it's visible for a minimum duration.
  * @param {string} message The message to display.
  * @param {string} type The type of message: 'status' (blue), 'success' (green), or 'error' (red).
+ * @returns {Promise<void>} A promise that resolves after the message has been displayed for at least MIN_STATUS_DISPLAY_TIME_MS.
  */
-const updateStatus = (message, type = 'status') => {
+const updateStatus = async (message, type = 'status') => {
     statusAndErrorElement.textContent = message;
     switch (type) {
         case 'status':
@@ -33,6 +43,7 @@ const updateStatus = (message, type = 'status') => {
         default:
             statusAndErrorElement.style.color = ''; // Default browser color
     }
+    await delay(MIN_STATUS_DISPLAY_TIME_MS); // Ensure message is visible for at least this long
 };
 
 /**
@@ -46,7 +57,6 @@ const parseGitHubUrl = (url) => {
         const urlObj = new URL(url);
         const pathSegments = urlObj.pathname.split("/").filter(s => s !== '');
 
-        // Basic validation for GitHub issues URL structure
         if (urlObj.hostname !== 'github.com' || pathSegments.length < 4 || pathSegments[2] !== 'issues') {
             throw new Error("Please enter a valid GitHub issue URL.");
         }
@@ -58,7 +68,6 @@ const parseGitHubUrl = (url) => {
 
         return { owner, repo, number };
     } catch (e) {
-        // Provide more specific error messages for URL parsing issues
         if (e instanceof TypeError && e.message.includes('Invalid URL')) {
             throw new Error("Invalid URL format. Ensure it's a complete web address.");
         }
@@ -78,9 +87,8 @@ const convertToMarkdown = (issue, comments) => {
     md += issue.body + "\n\n";
 
     if (comments.length > 0) {
-        md += "---\n\n"; // Separator for comments
+        md += "---\n\n";
         comments.forEach((comment) => {
-            // Include comment date for better context
             md += `### Comment by @${comment.user.login} on ${new Date(comment.created_at).toLocaleDateString()}\n\n`;
             md += comment.body + "\n\n";
             md += "---\n\n";
@@ -109,13 +117,12 @@ const getAllPages = async (url) => {
         allItems = allItems.concat(items);
 
         const linkHeader = response.headers.get("Link");
-        nextUrl = null; // Assume no next page unless 'rel="next"' is found
+        nextUrl = null;
         if (linkHeader) {
             const nextLink = linkHeader
                 .split(",")
                 .find((s) => s.includes('rel="next"'));
             if (nextLink) {
-                // Extract URL from '<url>; rel="next"' format
                 nextUrl = nextLink.split(";")[0].trim().slice(1, -1);
             }
         }
@@ -135,11 +142,9 @@ const fetchIssueAndComments = async (owner, repo, number) => {
     const issueUrl = `https://api.github.com/repos/${owner}/${repo}/issues/${number}`;
     const commentsUrl = `${issueUrl}/comments`;
 
-    // Fetch issue details
-    updateStatus('Fetching issue details...', 'status');
+    await updateStatus('Fetching issue details...', 'status'); // Staggered update
     const issueResponse = await fetch(issueUrl);
     if (!issueResponse.ok) {
-        // Specific error for 404 Not Found
         if (issueResponse.status === 404) {
             throw new Error(`Issue #${number} not found in '${owner}/${repo}'. Please verify the URL.`);
         }
@@ -147,8 +152,7 @@ const fetchIssueAndComments = async (owner, repo, number) => {
     }
     const issue = await issueResponse.json();
 
-    // Fetch comments, handling pagination
-    updateStatus('Fetching comments (this might take a moment for many comments)...', 'status');
+    await updateStatus('Fetching comments (this might take a moment for many comments)...', 'status'); // Staggered update
     const comments = await getAllPages(commentsUrl);
 
     return { issue, comments };
@@ -170,34 +174,34 @@ const copyToClipboard = async (text) => {
 // Event Listener for the Convert Button
 convertButton.addEventListener("click", async () => {
     // 1. Reset UI and disable elements
-    resetUI(); // Clear previous status/error
+    resetUI();
     urlInput.disabled = true;
     convertButton.disabled = true;
-    updateStatus('Starting conversion...', 'status');
+    await updateStatus('Starting conversion...', 'status'); // Staggered update
 
     try {
         // 2. Parse URL
-        updateStatus('Parsing GitHub URL...', 'status');
+        await updateStatus('Parsing GitHub URL...', 'status'); // Staggered update
         const { owner, repo, number } = parseGitHubUrl(urlInput.value);
 
-        // 3. Fetch Issue and Comments
+        // 3. Fetch Issue and Comments (these calls already include staggered updates internally)
         const { issue, comments } = await fetchIssueAndComments(owner, repo, number);
 
         // 4. Convert to Markdown
-        updateStatus('Converting data to Markdown...', 'status');
+        await updateStatus('Converting data to Markdown...', 'status'); // Staggered update
         const markdown = convertToMarkdown(issue, comments);
 
         // 5. Copy to Clipboard
-        updateStatus('Attempting to copy to clipboard...', 'status');
+        await updateStatus('Attempting to copy to clipboard...', 'status'); // Staggered update
         await copyToClipboard(markdown);
 
         // 6. Success
-        updateStatus('Successfully copied to clipboard!', 'success');
+        await updateStatus('Successfully copied to clipboard!', 'success'); // Staggered update
 
     } catch (error) {
         // Handle any errors that occurred during the process
         console.error("Conversion Error:", error);
-        updateStatus(`Conversion failed: ${error.message}`, 'error'); // Display error message
+        await updateStatus(`Conversion failed: ${error.message}`, 'error'); // Staggered update for errors
     } finally {
         // 7. Re-enable UI elements regardless of success or failure
         urlInput.disabled = false;

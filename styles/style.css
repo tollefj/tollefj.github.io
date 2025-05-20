@@ -1,7 +1,7 @@
 :root {
   --color-primary: #333;
   --color-secondary: #000;
-  --color-accent: #777;
+  --color-accent: #a45100;
   --color-bg: #f5f5dc;
   --color-text: #000;
   --font-family: "Georgia", serif;
@@ -40,9 +40,20 @@ header time {
 
 h1 {
   cursor: pointer;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: bold;
+  &:hover {
+    color: var(--color-secondary);
+  }
+}
+
+h1 {
   a {
     color: inherit;
-    text-decoration: none;
   }
 }
 
@@ -50,10 +61,6 @@ h1 {
   text-decoration: none;
   color: var(--color-accent);
   cursor: pointer;
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
   &:hover {
     text-decoration: none;
     color: var(--color-secondary);
@@ -74,20 +81,12 @@ sup {
   vertical-align: super;
   line-height: 0;
   color: var(--color-accent);
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
 }
 
 .footnote-backref {
   font-size: 0.8rem;
   line-height: 0;
   color: var(--color-primary);
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
 }
 
 /* @layer utilities { */
@@ -126,44 +125,5 @@ footer {
   gap: 1rem;
   font-size: 0.9rem;
   color: var(--color-primary);
-  a {
-    color: inherit;
-    text-decoration: none;
-    &:hover {
-      color: var(--color-secondary);
-    }
-  }
 }
 
-.input-group {
-  margin-bottom: 1rem;
-}
-input {
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-}
-.error {
-  color: red;
-  margin-top: 1rem;
-}
-
-.container {
-  display: flex;
-  gap: 0.5rem;
-  height: 100%;
-  width: 100%;
-  /* height: 3rem; */
-}
-
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}

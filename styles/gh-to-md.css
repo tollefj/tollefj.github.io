@@ -1,0 +1,47 @@
+input {
+  width: 100%;
+  padding: 8px;
+  margin-right: 5px;
+  font-size: 1rem;
+  &:focus {
+    outline: none;
+  }
+  box-shadow: none;
+  border: 1px solid black;
+  border-right: none;
+}
+button {
+  /* padding: 0.5rem 1rem; */
+  font-size: 1rem;
+  border: 1px solid black;
+  border-radius: 0;
+  padding: 8px;
+  cursor: pointer;
+  /* nicer colors */
+  background-color: #000;
+  color: white;
+  &:hover {
+    background-color: #fff;
+    color: black;
+  }
+}
+.error {
+  color: red;
+  margin-top: 1rem;
+}
+
+.container {
+  display: flex;
+  gap: 17px;
+  height: 100%;
+  width: 100%;
+  /* height: 3rem; */
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}

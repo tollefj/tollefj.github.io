@@ -8,9 +8,10 @@ from util import article_html, meta_html, snapshot, add_tools
 POSTS_DIR = "posts"
 TEMPLATE = "templates/index.html"
 OUTPUT = "index.html"
+ROOT = ""
 
 if __name__ == "__main__":
-    snapshot()
+    # snapshot()
 
     with open(TEMPLATE, "r") as f:
         HTML = f.read()
@@ -47,16 +48,8 @@ if __name__ == "__main__":
     )
     posts_html = [p["html"] for p in posts_sorted]
     posts_html = "\n".join(posts_html)
-
-    html = HTML.replace("{CONTENT}", posts_html)
-    html = html.replace("{HREF}", OUTPUT)
-
-    # TOOLS:
-    # gh_md_url = gh_md_tool(HTML, location="posts/gh-md-tool.html")
-    # html = html.replace("{TOOLS}", gh_md_url)
-    # we pass the template so we can build separate standalone websites for each tool
+    html = HTML.replace("{CONTENT}", posts_html).replace("{ROOT}", ROOT)
     html = add_tools(html, template=HTML)
-
 
     with open(OUTPUT, "w") as f:
         f.write(html)

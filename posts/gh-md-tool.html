@@ -4,24 +4,31 @@
   <head>
     <meta charset="UTF-8" />
     <title>tollef.web</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../styles/style.css" />
   </head>
   <body>
     <h1><a href="../index.html">tollef.web</a></h1>
-    <main><div>
-  <div class="container centered">
-    <div>
-      <!-- <label for="issue-url">github issue url</label> -->
-      <input type="text" id="issue-url" placeholder="github issue url" />
-    </div>
-    <div>
-      <button id="convert">copy .md</button>
-    </div>
+    <main><link rel="stylesheet" href="../styles/gh-to-md.css" />
+<div class="container centered">
+  <div>
+    <!-- <label for="issue-url">github issue url</label> -->
+    <input type="text" id="issue-url" placeholder="github issue url" />
   </div>
-  <p class="error" id="error"></p>
-  <script type="module" src="gh-to-md.js"></script>
-  <p class="centered">A reworked implementation of the <a href="https://github.com/simonw/tools/blob/main/github-issue-to-markdown.html">&nbsp;tool by Simon Willison</a></p>
-</div></main>
+  <div>
+    <button id="convert">copy .md</button>
+  </div>
+</div>
+<p class="error centered" id="error"></p>
+<!-- all html files will be built in the /posts directory, thus ../ -->
+<script type="module" src="../scripts/gh-to-md.js"></script>
+<p class="centered">
+  A reworked implementation of the&nbsp;
+  <a
+    href="https://github.com/simonw/tools/blob/main/github-issue-to-markdown.html"
+    >tool by Simon Willison</a
+  >
+</p>
+</main>
     <main></main>
     <footer>
       <div class="content">
