@@ -3,7 +3,7 @@ const urlInput = document.getElementById("issue-url");
 const convertButton = document.getElementById("convert");
 const statusAndErrorElement = document.getElementById("error"); // Re-purposing the error element for status too
 
-const MIN_STATUS_DISPLAY_TIME_MS = 1000; // Minimum time each status message is visible (1 second)
+const MIN_STATUS_DISPLAY_TIME_MS = 200; // Minimum time each status message is visible (1 second)
 
 /**
  * Utility function to create a delay.
