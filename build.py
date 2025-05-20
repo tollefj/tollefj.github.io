@@ -1,18 +1,19 @@
 import yaml
 import re
-import datetime
+from datetime import datetime
 import os
 from util import article_html, meta_html, snapshot
+
+POSTS_DIR = "posts"
+TEMPLATE = "templates/index.html"
+OUTPUT = "index.html"
 
 if __name__ == "__main__":
     snapshot()
 
-# load HTML from templates/index.html
-    with open("templates/index.html", "r") as f:
+    with open(TEMPLATE, "r") as f:
         HTML = f.read()
 
-
-    POSTS_DIR = "posts"
     post_links = []
     for root, dirs, files in os.walk(POSTS_DIR):
         for file in files:
@@ -32,20 +33,21 @@ if __name__ == "__main__":
                 article_html(HTML, _yml, _md, post_id)
                 # add the post to the list for sorting links
                 post_links.append(
-                    {"timestamp": _yml["timestamp_iso"], "html": meta_html(_yml, post_id)}
+                    {
+                        "timestamp": _yml["timestamp_iso"],
+                        "html": meta_html(_yml, post_id),
+                    }
                 )
-
 
     posts_sorted = sorted(
         post_links,
-        key=lambda x: datetime.datetime.fromisoformat(x["timestamp"]),
+        key=lambda x: datetime.fromisoformat(x["timestamp"]),
         reverse=True,
     )
     posts_html = [p["html"] for p in posts_sorted]
     posts_html = "\n".join(posts_html)
 
     html = HTML.replace("{CONTENT}", posts_html)
-    html = html.replace("{HREF}", "index.html")
-
-    with open("index.html", "w") as f:
+    html = html.replace("{HREF}", OUTPUT)
+    with open(OUTPUT, "w") as f:
         f.write(html)
