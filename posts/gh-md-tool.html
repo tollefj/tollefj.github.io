@@ -7,9 +7,22 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1><a href="{HREF}">tollef.web</a></h1>
-    <main>{CONTENT}</main>
-    <main>{TOOLS}</main>
+    <h1><a href="../index.html">tollef.web</a></h1>
+    <main><div>
+  <div class="container centered">
+    <div>
+      <!-- <label for="issue-url">github issue url</label> -->
+      <input type="text" id="issue-url" placeholder="github issue url" />
+    </div>
+    <div>
+      <button id="convert">copy .md</button>
+    </div>
+  </div>
+  <p class="error" id="error"></p>
+  <script type="module" src="gh-to-md.js"></script>
+  <p class="centered">A reworked implementation of the <a href="https://github.com/simonw/tools/blob/main/github-issue-to-markdown.html">&nbsp;tool by Simon Willison</a></p>
+</div></main>
+    <main></main>
     <footer>
       <div class="content">
         <div id="footer-left">

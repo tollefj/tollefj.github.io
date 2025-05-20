@@ -3,7 +3,7 @@ import re
 import yaml
 from datetime import datetime
 
-from util import article_html, meta_html, snapshot
+from util import article_html, meta_html, snapshot, add_tools
 
 POSTS_DIR = "posts"
 TEMPLATE = "templates/index.html"
@@ -50,5 +50,13 @@ if __name__ == "__main__":
 
     html = HTML.replace("{CONTENT}", posts_html)
     html = html.replace("{HREF}", OUTPUT)
+
+    # TOOLS:
+    # gh_md_url = gh_md_tool(HTML, location="posts/gh-md-tool.html")
+    # html = html.replace("{TOOLS}", gh_md_url)
+    # we pass the template so we can build separate standalone websites for each tool
+    html = add_tools(html, template=HTML)
+
+
     with open(OUTPUT, "w") as f:
         f.write(html)
