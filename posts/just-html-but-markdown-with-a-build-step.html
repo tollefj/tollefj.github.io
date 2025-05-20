@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>tollef.web</title>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css"
+    />
+  </head>
+  <body>
+    <h1><a href="../index.html">tollef.web</a></h1>
+    <main><article>
+  <h2>just html... but markdown with a build step</h2>
+  <div class="meta">
+    <p id="date">May 20 2025 @ 16:56</p>
+  </div>
+  <div class="content"><p>wanting to move to pure html, embarrassingly from the website <a href="https://justfuckingusehtml.com/">justfuckingusehtml</a>, I ended up moving from the typical jekyll gh-pages setup, to my own local md files with metadata through a ./new.sh script, and then a python pipeline building and injecting the resulting html files into a single <code>index.html</code>.</p>
+<p>the workflow (new blog):</p>
+<pre><code class="language-txt">./new.sh &quot;some title&quot; --&gt; md + yml meta file.
+edit `posts/&lt;year&gt;/&lt;month&gt;/some-title.md`
+./build.py --&gt; index.html
+push changes
+</code></pre>
+<hr />
+<h3>project structure</h3>
+<pre><code class="language-bash">.
+├── modules
+│   └── gh-to-md.html
+├── posts
+│   ├── 2023
+│   │   ...
+│   ├── 2024
+│   ├── 2025
+│   │   └── 05
+│   │       ├── LLM.md
+│   │       └── LLM.yml
+│   ├── gh-md-tool.html
+│   └── LLM-workflows.html
+├── scripts
+│   └── gh-to-md.js
+├── styles
+│   ├── gh-to-md.css
+│   └── style.css
+├── templates
+│   ├── article.html
+│   ├── index.html
+│   └── meta.html
+├── index.html
+├── new.sh
+├── reqs.txt
+├── build.py
+└── util.py
+</code></pre>
+<h3><code>new.sh</code></h3>
+<pre><code class="language-bash">#!/bin/bash
+
+if [ &quot;$#&quot; -ne 1 ]; then
+  echo &quot;Something went wrong. Example: ./new.sh \&quot;some title\&quot;&quot;
+  exit 1
+fi
+
+TITLE=&quot;$1&quot;
+CATEGORY=&quot;blog&quot;
+
+SLUG=$(echo &quot;$TITLE&quot; | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr '[:upper:]' '[:lower:]')
+POST_ID=&quot;${SLUG}-$(date -u +&quot;%s&quot;)&quot;
+
+TIMESTAMP_ISO=$(date -u +&quot;%Y-%m-%dT%H:%M:%SZ&quot;)
+TIMESTAMP_READABLE=$(date +&quot;%Y-%m-%d %H:%M&quot;)
+
+YAML_FILENAME=&quot;posts/${POST_ID}.yml&quot;
+MD_FILENAME=&quot;posts/${POST_ID}.md&quot;
+
+mkdir -p posts
+mkdir -p posts/$(date +%Y)/$(date +%m)
+
+cat &gt; &quot;$YAML_FILENAME&quot; &lt;&lt;EOF
+title: &quot;$TITLE&quot;
+timestamp_iso: &quot;$TIMESTAMP_ISO&quot;
+timestamp_readable: &quot;$TIMESTAMP_READABLE&quot;
+category: &quot;$CATEGORY&quot;
+slug: &quot;$POST_ID&quot;
+md: &quot;$MD_FILENAME&quot;
+EOF
+
+# this is just a placeholder md file
+cat &gt; &quot;$MD_FILENAME&quot; &lt;&lt;EOF
+Some text.
+A footnote [^1]
+[^1]: some details
+EOF
+
+mv &quot;$YAML_FILENAME&quot; &quot;posts/$(date +%Y)/$(date +%m)/$POST_ID.yml&quot;
+mv &quot;$MD_FILENAME&quot; &quot;posts/$(date +%Y)/$(date +%m)/$POST_ID.md&quot;
+
+echo &quot;Successfully created post '$TITLE':&quot;
+echo &quot;  Metadata: $YAML_FILENAME&quot;
+echo &quot;  Content:  $MD_FILENAME&quot;
+</code></pre>
+<p>all pages here are sourced from the template <code>templates/index.html</code>, where various content is replaced in a naive but efficient way for a simple site like this. it's all string manipulation, without relying on external libraries outside of <a href="https://github.com/markdown-it/markdown-it">markdown-it</a> for parsing md into html.</p>
+<h3>tools</h3>
+<p>the <code>gh-to-md</code>-tool is an example of how additional sections can be added, where the html is iframe-like, containing an incomplete module to be injected into the homepage. this is done through a <code>add_tools()</code>-step, as follows:</p>
+<pre><code class="language-python">
+def add_tools(html, template):
+    _html = [&quot;&lt;h2&gt;Tools&lt;/h2&gt;&quot;]
+    tools = [
+        {
+            &quot;title&quot;: &quot;github issue to .md&quot;,
+            &quot;location&quot;: &quot;posts/gh-md-tool.html&quot;,
+            &quot;build&quot;: gh_md_tool,
+        }
+    ]
+
+    for tool in tools:
+        # first build the html under /posts
+        tool[&quot;build&quot;](template, tool[&quot;location&quot;])
+        #  then link to it on the home page
+        _html.append(
+            strip_spaces(
+                f&quot;&lt;h2 class='linkify'&gt;&lt;a href='{tool['location']}'&gt;{tool['title']}&lt;/a&gt;&lt;/h2&gt;&quot;
+            )
+        )
+    _html = strip_spaces(&quot;\n&quot;.join(_html))
+    # inject:
+    return html.replace(&quot;&quot;, _html)
+</code></pre>
+</div>
+</article>
+</main>
+    <main></main>
+    <footer>
+      <div class="content">
+        <div id="footer-left">
+          <p>tollef jørgensen &#169;2025</p>
+        </div>
+        <div id="footer-right">
+          <p><a href="https://linkedin.com/in/tollefj">linkedin</a></p>
+          <p><a href="https://github.com/tollefj">github</a></p>
+          <p>
+            <a
+              href="https://scholar.google.com/citations?user=LpJWJnIAAAAJ&hl=en"
+              >scholar</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>
