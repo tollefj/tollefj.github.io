@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <title>tollef.web</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1><a href="../index.html">tollef.web</a></h1>
+    <main><article>
+    <h2>LLM workflows</h2>
+    <div class="meta">
+        <p id="date">May 12 2025 @ 14:27</p>
+    </div>
+    <div class="content"><p>These are a few notes from experiences and random readings online as of late.</p>
+<ul>
+<li>
+<p><strong>prompt chaining &gt; monolith</strong>: small discrete steps with individual prompts. tends to outperform single-prompt with chain-of-thought instructions</p>
+</li>
+<li>
+<p><strong>structured CoT</strong>: headings and bullet points to keep the structure clear throughout, rather than adding in unstructured formats like <code>&lt;thinking&gt;...</code> tokens.</p>
+</li>
+<li>
+<p><strong>xml, really</strong>: seems to work better than JSON in some cases. depends on the task (e.g., coding applications are typically filled with json).</p>
+</li>
+<li>
+<p><strong>semantic parsing</strong>: explicitly instruct llms to act solely as semantic parsers, avoiding the introduction of external knowledge</p>
+</li>
+<li>
+<p><strong>external verification</strong>: use tools like nltk, spacy, and flairnlp to verify llm outputs, instead of giving it as yet another context-window-filling adventure to the LLM.</p>
+</li>
+<li>
+<p><strong>task-specific models</strong>: for narrow tasks, fine-tuned encoder models like modernbert offer performance comparable to llms</p>
+</li>
+<li>
+<p><strong>model sizing</strong>: properly structured tasks often do not require models larger than 32b parameters. see <a href="https://euroeval.com/leaderboards/Multilingual/european/">EuroEval</a> for an idea of results across multiple languages.</p>
+</li>
+<li>
+<p><strong>llm confidence scoring</strong>: relying on llms to self-assess confidence is unreliable, especially without grounding. letting it rank based on specific instructions (1 means blabla and 2 means that it blablabla&quot;) is definitely better than &quot;provide an assessment score between 1-5&quot;.</p>
+</li>
+<li>
+<p><strong>self-consistency</strong>: running multiple prompt iterations and aggregating results can improve accuracy but clearly benefits from smaller prompts and/or models</p>
+</li>
+<li>
+<p><strong>exit conditions</strong>: explicit termination criteria for agentic loops, either through structured output, relying on EOS-tokens, or similar.</p>
+</li>
+<li>
+<p><strong>token limitations</strong>: degradation is common beyond 4k tokens in the context window, even though the support is much, much larger. reliable output should never have to deal with crazy document sizes.</p>
+</li>
+</ul>
+<h3>some links</h3>
+<ul>
+<li><a href="https://www.reddit.com/r/LocalLLaMA/comments/1khjrtj/building_llm_workflows_some_observations/">llm workflows</a></li>
+<li><a href="https://simmering.dev/blog/modernbert-vs-llm/">modernbert</a></li>
+<li><a href="https://www.nature.com/articles/s41586-024-07421-0">hallucinations</a></li>
+<li><a href="https://www.reddit.com/r/LocalLLaMA/comments/1gh4ht7/are_confidence_scores_from_llms_meaningful/">confidence in llms</a></li>
+</ul>
+</div>
+</article></main>
+    <footer>
+      <div class="content">
+        <p>tollef jørgensen</p>
+        <p>2025</p>
+      </content>
+    </footer>
+  </body>
+</html>

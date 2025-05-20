@@ -1,98 +1,38 @@
----
-layout: default
-title: Home
----
-
-
-<div class="search-container">
-  <input type="text" id="search-input" placeholder="search..." />
-  <ul id="search-results"></ul>
+<!doctype html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <title>tollef.web</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1><a href="index.html">tollef.web</a></h1>
+    <main><h2 class="linkify"><a href="posts/two-days-later.html">two days later</a></h2>
+<div class="meta">
+    <p id="date">May 20 2025 @ 10:38</p>
 </div>
-
-<!-- <h1>posts</h1> -->
-<br />
-{% for post in paginator.posts %}
-<h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-{% assign words = post.content | strip_html | number_of_words %} {% assign
-read_time = words | divided_by: 200.0 | ceil %}
-<p class="post-preview">
-  <span class="date"
-    >{{ post.date | date: "%B %d, %Y, %H:%m" | downcase }}</span
-  >
-  <br />
-  <span class="read-time">read time: ~{{ read_time }} min</span>
-  <br />
-  {% if post.description %}
-  <span>▷︎<i> {{ post.description }}</i></span>
-  {% endif %}
-</p>
-{% endfor %}
-
-<div class="pagination">
-  <a
-    href="{{ paginator.previous_page_path }}"
-    class="previous pagination-link {% unless paginator.previous_page %}hidden{% endunless %}"
-  >
-    previous
-  </a>
-  {% if paginator.total_pages > 1 %}
-  <span class="page_number">
-    page: {{ paginator.page }}/{{ paginator.total_pages }}
-  </span>
-  {% endif %}
-  <a
-    href="{{ paginator.next_page_path }}"
-    class="next pagination-link {% unless paginator.next_page %}hidden{% endunless %}"
-  >
-    next
-  </a>
-  <br>
+<h2 class="linkify"><a href="posts/next-day.html">next day</a></h2>
+<div class="meta">
+    <p id="date">May 19 2025 @ 22:13</p>
 </div>
-<section class="introduction">
-  <p class="text"></p>
-</section>
-
-<script src="/assets/js/scramble.js"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("search-input");
-    const searchResults = document.getElementById("search-results");
-    const posts = window.store.posts;
-
-    searchInput.addEventListener("input", function (e) {
-      const query = e.target.value.toLowerCase();
-      searchResults.innerHTML = "";
-
-      if (query.length > 0) {
-        const results = posts
-          .filter((post) => {
-            const title = post.title.toLowerCase();
-            const tags = post.tags.map((tag) => tag.toLowerCase());
-
-            return (
-              title.includes(query) ||
-              tags.some((tag) => tag.includes(query))
-            );
-          })
-          .slice(0, 3);
-
-        results.forEach((post) => {
-          const date = new Date(post.date);
-          const formattedDate = date.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-          });
-          const li = document.createElement("li");
-          li.innerHTML = `
-            <a href="${post.url}">${post.title}</a>
-            <br>
-            <small>${formattedDate}</small>
-          `;
-          searchResults.appendChild(li);
-        });
-      }
-    });
-  });
-</script>
+<h2 class="linkify"><a href="posts/yay-it-works.html">yay it works..?</a></h2>
+<div class="meta">
+    <p id="date">May 18 2025 @ 18:10</p>
+</div>
+<h2 class="linkify"><a href="posts/another.html">another</a></h2>
+<div class="meta">
+    <p id="date">May 18 2025 @ 17:27</p>
+</div>
+<h2 class="linkify"><a href="posts/LLM-workflows.html">LLM workflows</a></h2>
+<div class="meta">
+    <p id="date">May 12 2025 @ 14:27</p>
+</div></main>
+    <footer>
+      <div class="content">
+        <p>tollef jørgensen</p>
+        <p>2025</p>
+      </content>
+    </footer>
+  </body>
+</html>

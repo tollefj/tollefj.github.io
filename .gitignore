@@ -1,3 +1,21 @@
+/old
+/posts/*
+!/posts/*.html
+
+*.swp
+*.tmp
+
+
+# python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+*.whl
+
+
 # macOS system files
 .DS_Store
 .AppleDouble

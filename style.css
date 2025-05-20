@@ -1,0 +1,109 @@
+:root {
+  --color-primary: #333;
+  --color-secondary: #000;
+  --color-accent: #666;
+  --color-bg: #f5f5dc;
+  --color-text: #000;
+  --font-family: "Georgia", serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Georgia", serif;
+  margin: 2rem;
+}
+
+main {
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+
+header time {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+h1 {
+  cursor: pointer;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.linkify {
+  text-decoration: none;
+  color: var(--color-accent);
+  cursor: pointer;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: none;
+    color: var(--color-secondary);
+  }
+  &:visited {
+    text-decoration: none;
+    color: var(--color-accent);
+  }
+  &:active &:focus {
+    text-decoration: none;
+    color: var(--color-primary);
+  }
+  transition: color 0.3s ease;
+}
+
+sup {
+    font-size: 0.8rem;
+    vertical-align: super;
+    line-height: 0;
+    color: var(--color-accent);
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+}
+
+.footnote-backref {
+    font-size: 0.8rem;
+    line-height: 0;
+    color: var(--color-primary);
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+/* @layer utilities { */
+/*   article { */
+/*     & header { */
+/*       & h2 { */
+/*         font-size: 1.5rem; */
+/*       } */
+/*     } */
+/*   } */
+/* } */
+
+footer {
+  position: fixed;
+  background: #f5f5dc;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 1rem;
+  border-top: 1px solid #aaa;
+  font-size: 0.9rem;
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+}
