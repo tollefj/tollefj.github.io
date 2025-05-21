@@ -1,5 +1,4 @@
 #!/bin/bash
-
 if [ "$#" -ne 1 ]; then
   echo "Something went wrong. Example: ./new.sh \"some title\""
   exit 1
