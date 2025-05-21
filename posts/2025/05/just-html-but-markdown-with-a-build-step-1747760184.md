@@ -4,8 +4,9 @@ the workflow (new blog):
 
 ```txt
 ./new.sh "some title" --> md + yml meta file.
+python new.py --> interactively asks you for content/date/...
 edit `posts/<year>/<month>/some-title.md`
-./build.py --> index.html
+python build.py --> index.html
 push changes
 ```
 ___
