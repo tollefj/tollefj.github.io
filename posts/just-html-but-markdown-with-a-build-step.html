@@ -20,8 +20,9 @@
   <div class="content"><p>wanting to move to pure html, embarrassingly from the website <a href="https://justfuckingusehtml.com/">justfuckingusehtml</a>, I ended up moving from the typical jekyll gh-pages setup, to my own local md files with metadata through a ./new.sh script, and then a python pipeline building and injecting the resulting html files into a single <code>index.html</code>.</p>
 <p>the workflow (new blog):</p>
 <pre><code class="language-txt">./new.sh &quot;some title&quot; --&gt; md + yml meta file.
+python new.py --&gt; interactively asks you for content/date/...
 edit `posts/&lt;year&gt;/&lt;month&gt;/some-title.md`
-./build.py --&gt; index.html
+python build.py --&gt; index.html
 push changes
 </code></pre>
 <hr />
